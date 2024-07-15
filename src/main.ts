@@ -13,7 +13,7 @@ async function bootstrap() {
       transport: Transport.RMQ,
       options: {
         urls: configService.get('BROKER_HOST'),
-        queue: AUTH_QUEUE,
+        queue: AUTH_QUEUE.authQueue,
         queueOptions: {
           durable: false,
         },
