@@ -1,7 +1,8 @@
 import { configService } from '../../../shared/dto';
 import { TokenPortRepository } from '../../domain/repositories/tokenPortRepository';
 import { sign, decode } from 'jsonwebtoken';
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class TokenRepositoryImp implements TokenPortRepository {
@@ -14,7 +15,10 @@ export class TokenRepositoryImp implements TokenPortRepository {
       });
       return token;
     } catch (error) {
-      throw new Error(error);
+      throw new RpcException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: error.message,
+      });
     }
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,7 +27,10 @@ export class TokenRepositoryImp implements TokenPortRepository {
       const decodePayload = await decode(token);
       return decodePayload;
     } catch (error) {
-      throw new Error(error);
+      throw new RpcException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: error.message,
+      });
     }
   }
 }

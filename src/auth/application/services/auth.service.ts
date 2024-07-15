@@ -2,7 +2,6 @@ import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateLoginDTO, CreateUserDto } from '../../domain/dto';
 import { AuthServiceRepository } from '../../domain/repositories/authServiceRepository';
-import { CustomError } from '../../../shared/entities';
 import { Repository } from 'typeorm';
 import { TokenService } from './token.service';
 import { HashedPasswordService } from './hashedPassword.service';

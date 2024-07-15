@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpStatus, Inject, Injectable } from '@nestjs/common';
 import {
   TokenResponse,
   PayloadInterface,
@@ -7,6 +7,7 @@ import {
 } from '../../domain/entities';
 import { TokenServiceRepository } from '../../domain/repositories/tokenServiceRepository';
 import { TokenRepositoryImp } from '../../infraestructure/ports/TokenRepositoryImp.port';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class TokenService implements TokenServiceRepository {
@@ -24,7 +25,10 @@ export class TokenService implements TokenServiceRepository {
       };
       return tokenObj;
     } catch (error) {
-      throw new Error(error);
+      throw new RpcException({
+        status: HttpStatus.UNAUTHORIZED,
+        message: error.message,
+      });
     }
   }
   async decodeToken(token: string): Promise<DecodeTokenResInterface> {
@@ -40,7 +44,10 @@ export class TokenService implements TokenServiceRepository {
       };
       return response;
     } catch (error) {
-      throw new Error(error);
+      throw new RpcException({
+        status: HttpStatus.UNAUTHORIZED,
+        message: error.message,
+      });
     }
   }
 }
