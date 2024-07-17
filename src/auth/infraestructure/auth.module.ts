@@ -13,7 +13,7 @@ import { User, UserProfile } from './ports/mysql';
 @Global()
 @Module({
   imports: [
-    RabbitMQModule,
+    // RabbitMQModule,
     TypeOrmModule.forFeature([UserProfile, User]),
     JwtModule.register({
       global: true,
