@@ -6,14 +6,12 @@ import { TokenRepositoryImp } from './ports/TokenRepositoryImp.port';
 import { BcryptRepositoryImp } from './ports/BcryptRepositoryImp.port';
 import { HashedPasswordService } from '../application/services/hashedPassword.service';
 import { JwtModule } from '@nestjs/jwt';
-import { RabbitMQModule } from '../../shared/transports/rabbitMq.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User, UserProfile } from './ports/mysql';
 
 @Global()
 @Module({
   imports: [
-    // RabbitMQModule,
     TypeOrmModule.forFeature([UserProfile, User]),
     JwtModule.register({
       global: true,
