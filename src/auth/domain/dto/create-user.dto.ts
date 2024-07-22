@@ -9,6 +9,7 @@ import {
 } from 'class-validator';
 import { TerrariumsInterface } from '../../../shared/entities';
 import { CreateUserProfile } from './create-user_profile';
+import { Type } from 'class-transformer';
 
 export class CreateUserDto {
   @IsInt()
@@ -31,6 +32,7 @@ export class CreateUserDto {
   @ValidateNested()
   @IsNotEmpty()
   @IsNotEmptyObject()
+  @Type(() => CreateUserProfile)
   userProfile: CreateUserProfile;
 
   @ValidateNested()
